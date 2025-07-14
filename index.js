@@ -24,8 +24,6 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 // Middleware
-import cors from 'cors';
-
 app.use(cors({
   origin: ['http://localhost:5173'], // allow your local frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
