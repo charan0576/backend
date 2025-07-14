@@ -24,11 +24,18 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 // Middleware
+import cors from 'cors';
+
 app.use(cors({
-  origin: '*',
+  origin: ['http://localhost:5173'], // allow your local frontend
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
+
+// Handle preflight OPTIONS requests
+app.options('*', cors());
+
 
 app.use(express.json());
 app.use('/uploads', express.static(uploadsDir));
