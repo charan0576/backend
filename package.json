@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "node server/index.js",
-    "start": "node server/index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
