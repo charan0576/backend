@@ -25,7 +25,7 @@ if (!fs.existsSync(uploadsDir)) {
 }
 // Middleware
 app.use(cors({
-  origin: 'https://exam-portal2.onrender.com',
+  origin: 'https://exam.indonalandatech.com',
   credentials: true
 }));
 
