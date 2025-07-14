@@ -25,9 +25,7 @@ if (!fs.existsSync(uploadsDir)) {
 }
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5173'], // allow your local frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: 'https://exam-portal2.onrender.com',
   credentials: true
 }));
 
