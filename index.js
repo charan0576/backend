@@ -186,6 +186,33 @@ app.post('/api/admin/users', authenticateToken, async (req, res) => {
   }
 });
 
+app.post('/api/admin/users/reg', async (req, res) => {
+  try {
+    const { name, regno, password } = req.body;
+    const existingUser = await User.findOne({ regno });
+    if (!existingUser) {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = new User({
+      name,
+      regno,
+      password: hashedPassword,
+      role: 'student'
+    });
+
+    await user.save();
+    res.status(201).json({ message: 'User created successfully' });
+  }
+    else {
+      return res.status(400).json({ error: 'Registration number already exists' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+    console.error('Error creating user:', error);
+  }
+
+});
+
 app.get('/api/admin/users', authenticateToken, async (req, res) => {
   try {
     if (req.user.role !== 'admin') {
