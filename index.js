@@ -448,8 +448,12 @@ app.get('/api/rankings', authenticateToken, async (req, res) => {
         $group: {
           _id: '$userId',
           totalScore: { $sum: '$score' },
-          totalQuestions: { $sum: '$totalQuestions' },
           testsCount: { $sum: 1 }
+        }
+      },
+      {
+        $addFields: {
+          totalQuestions: 30
         }
       },
       {
@@ -470,7 +474,18 @@ app.get('/api/rankings', authenticateToken, async (req, res) => {
           totalScore: 1,
           totalQuestions: 1,
           testsCount: 1,
-          percentage: { $multiply: [{ $divide: ['$totalScore', '$totalQuestions'] }, 100] }
+          percentage: {
+  $multiply: [
+    {
+      $divide: [
+        '$totalScore',
+        { $multiply: ['$testsCount', 30] }
+      ]
+    },
+    100
+  ]
+}
+
         }
       },
       {
